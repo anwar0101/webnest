@@ -1,0 +1,14 @@
+Practise 1: blog
+
+Fetures:
+
+1. Registration
+2. Login
+3. Profile
+
+Pages:
+1. Homepage & Post details page
+2. Registration Page
+3. Login Page
+4. Profile page
+5. About page

@@ -1,0 +1,35 @@
+body {
+    background: #FFF 0px 0px;
+}
+
+#article h1 {
+    text-align: center;
+}
+
+#article p {
+    margin: 10px;
+}
+
+#sidebar a {
+    margin-left: 10px;
+}
+#sidebar p {
+    margin-left: 20px;
+}
+
+footer {
+    background: #ccc;
+}
+
+footer a {
+    margin: 10px;
+}
+
+#left a {
+    display: block;
+    margin: 0px;
+}
+
+#right {
+    padding-top: 35px;
+}
