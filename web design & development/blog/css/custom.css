@@ -2,8 +2,10 @@ body {
     background: #FFF 0px 0px;
 }
 
+
 #article h1 {
     text-align: center;
+    color: black;
 }
 
 #article p {
