@@ -2,6 +2,18 @@ body {
     background: #FFF 0px 0px;
 }
 
+@media only screen and (max-width: 500px) {
+    #article h1 {
+        text-align: center;
+        color: black;
+        font-size: 16px;
+
+    }
+    #article p {
+        margin: 10px;
+        text-align: justify;
+    }
+}
 
 #article h1 {
     text-align: center;
@@ -11,6 +23,7 @@ body {
 #article p {
     margin: 10px;
 }
+
 
 #sidebar a {
     margin-left: 10px;
