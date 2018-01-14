@@ -1,4 +1,6 @@
 <?php
+    /*php array example
+    with html table */
     $students = array(
         array('name' => 'Rahim Mia', 'roll' => 1, 'total_mark'=> 945),
         array('name' => 'Karim Mia', 'roll' => 2, 'total_mark'=> 950),
