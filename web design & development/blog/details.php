@@ -1,3 +1,31 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "anikdipa";
+$dbname = "blog";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$id = $_GET['id'];
+
+
+$sql = "SELECT * FROM articles WHERE id = $id";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  $row = $result->fetch_assoc();
+} else {
+    echo "0 results";
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,20 +69,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
+
                     <div class="col-md-12" id="article">
-                        <h1>What is Lorem Ipsum?</h1>
-                        <img src="http://via.placeholder.com/800x400">
+                        <h1><?php echo $row['title'] ?></h1>
+                        <img src="<?php echo $row['image'] ?>">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-
-                        <img src="http://via.placeholder.com/800x400">
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <?php echo $row['body']; ?>
                         </p>
 
                         <div class="col-md-12">

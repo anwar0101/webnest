@@ -1,3 +1,23 @@
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "anikdipa";
+$dbname = "blog";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM articles";
+$result = $conn->query($sql);
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -117,69 +137,35 @@
 
             <div class="row">
                 <div class="col-md-9">
-                    <div class="col-md-12" id="article">
-                        <a href="details.html"><h1>What is Lorem Ipsum?</h1></a>
-                        <img src="http://via.placeholder.com/800x400" class="img-responsive">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <div class="col-md-12">
-                            <div class="pull-left">
-                                <h4>0 Comment</h4>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        // output data of each row
+                        while($row = $result->fetch_assoc()) { ?>
+
+                            <div class="col-md-12" id="article">
+                                <a href="details.html"><h1><?php echo $row['title']; ?></h1></a>
+                                <img src="<?php echo $row['image'] ?>" class="img-responsive">
+                                <p>
+                                    <?php
+                                        echo mb_strimwidth($row['body'], 0, 500, " ...");
+                                    ?>
+                                </p>
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+                                        <h4>0 Comment</h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="details.php?id=<?php echo $row['id'] ?>"><button type="button" class="btn btn-default btn-sm" name="button">more</button></a>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
-                            <div class="pull-right">
-                                <a href="details.html"><button type="button" class="btn btn-default btn-sm" name="button">more</button></a>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="col-md-12" id="article">
-                        <h1>What is Lorem Ipsum?</h1>
-                        <img src="http://via.placeholder.com/800x400" class="img-responsive">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <div class="col-md-12">
-                            <div class="pull-left">
-                                <h4>0 Comment</h4>
-                            </div>
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-default btn-sm" name="button">more</button>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="col-md-12" id="article">
-                        <h1>What is Lorem Ipsum?</h1>
-                        <img src="http://via.placeholder.com/800x400" class="img-responsive">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <div class="col-md-12">
-                            <div class="pull-left">
-                                <h4>0 Comment</h4>
-                            </div>
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-default btn-sm" name="button">more</button>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="col-md-12" id="article">
-                        <h1>What is Lorem Ipsum?</h1>
-                        <img src="http://via.placeholder.com/800x400" class="img-responsive">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <div class="col-md-12">
-                            <div class="pull-left">
-                                <h4>0 Comment</h4>
-                            </div>
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-default btn-sm" name="button">more</button>
-                            </div>
-                        </div>
-                    </div>
+
+                        <?php }
+                    } else {
+                        echo "0 results";
+                    }
+                     ?>
                 </div>
                 <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
                     <h3>Latest articles</h3>
