@@ -1,6 +1,6 @@
 
 <?php
-include_once 'db/db.php';
+include_once '../db/db.php';
 
 $sql = "SELECT * FROM articles";
 $result = $conn->query($sql);
@@ -57,7 +57,7 @@ $conn->close();
             </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <div class="container">
+        <div class="container" style="min-height: 500px;">
 
         <!-- Modal -->
         <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="Login">
@@ -123,85 +123,92 @@ $conn->close();
         </div>
         </div>
         </div>
-
-
             <div class="row">
-                <div class="col-md-9">
-                    <?php
-                    if ($result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) { ?>
-
-                            <div class="col-md-12" id="article">
-                                <a href="details.php?id=<?php echo $row['id'] ?>"><h1><?php echo $row['title']; ?></h1></a>
-                                <img src="<?php echo $row['image'] ?>" class="img-responsive">
-                                <p>
-                                    <?php
-                                        echo mb_strimwidth($row['body'], 0, 500, " ...");
-                                    ?>
-                                </p>
-                                <div class="col-md-12">
-                                    <div class="pull-left">
-                                        <h4>0 Comment</h4>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="details.php?id=<?php echo $row['id'] ?>"><button type="button" class="btn btn-default btn-sm" name="button">more</button></a>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
-
-                        <?php }
-                    } else {
-                        echo "0 results";
-                    }
-                     ?>
+                <div class="col-md-3">
+                    <div class="" style="margin-bottom: 10px">
+                        <img src="http://via.placeholder.com/64x64" class="img-circle" alt=""> <span class="h4" style="margin-left: 10px;">Mr. Lime</span>
+                    </div>
+                    <ul class="list-group">
+                         <a class="list-group-item active">Dashboard</a>
+                         <a class="list-group-item">Settings</a>
+                    </ul>
                 </div>
-                <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-                    <h3>Latest articles</h3>
-                    <hr style="border-top: dotted 3px;" />
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
-                    <div class="">
-                        <i class="glyphicon glyphicon-euro"></i><a href="#">Article 1</a>
-                        <p>
-                            Jul, 2017 (minor update)
-                        </p>
-                    </div>
+                <div class="col-md-9">
+                   <div class="">
+                        <h4 class="pull-left">Your all posts</h4>
+                        <button type="button" data-toggle="modal" data-target="#newpost" class="btn btn-action btn-primary pull-right">New Post</button>
+                   </div>
+
+                   <!-- Modal -->
+                   <div class="modal fade" id="newpost" tabindex="-1" role="dialog" aria-labelledby="Register">
+                       <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                             <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                               <h4 class="modal-title text-center" id="exampleModalLabel">New Post</h4>
+                             </div>
+                             <div class="modal-body">
+                               <form action="dashboard/newpost.php" method="post" id="postform">
+                                 <div class="form-group">
+                                   <label for="recipient-name" class="control-label">Title:</label>
+                                   <input type="text" class="form-control" name="title">
+                                 </div>
+                                 <div class="form-group">
+                                   <label for="details" class="control-label">Details:</label>
+                                   <textarea name="details" rows="4" cols="68"></textarea>
+                                 </div>
+                                 <div class="form-group">
+                                   <label for="image" class="control-label">Image:</label>
+                                   <input type="text" name="image" class="form-control" value="">
+                                 </div>
+                                 <div class="form-group">
+                                   <label for="status" class="control-label">Status: </label>
+                                   <select class="form-control" name="status">
+                                       <option value="draft">Draft</option>
+                                       <option value="published">Published</option>
+                                   </select>
+                                 </div>
+                               </form>
+                             </div>
+                             <div class="modal-footer">
+                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                               <button type="submit" form="postform" class="btn btn-primary">Post</button>
+                             </div>
+                           </div>
+                       </div>
+                   </div>
+
+                    <table class="table">
+                        <thead>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            if($result->num_rows > 0){
+                                $i = 1;
+                                while ($row = $result->fetch_assoc()) { ?>
+
+                                    <tr>
+                                        <td><?php echo $i++; ?></td>
+                                        <td><?php echo $row['title']; ?></td>
+                                        <td><?php echo $row['status']; ?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-success" <?php if($row['status'] != 'draft') echo "disabled"; ?>>Publish</button>
+                                            <a href="details.php?id=<?php echo $row['id'] ?>" target="_blank"><button type="button" class="btn btn-sm btn-primary">View</button></a>
+                                            <button type="button" class="btn btn-sm btn-warning">Edit</button>
+                                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+
+                                <?php }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
